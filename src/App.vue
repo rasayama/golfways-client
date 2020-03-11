@@ -2,59 +2,61 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="green"
       dark
     >
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <span style="font-size: 30px;">
+          golfways
+        </span>
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <Search v-show="activeBtn == 0" />
+      <List v-show="activeBtn == 1" />
+      <Favorite v-show="activeBtn == 2" />
+      <Setting v-show="activeBtn == 3" />
     </v-content>
+
+    <v-bottom-navigation
+      :value="activeBtn"
+      color="green"
+    >
+      <v-btn v-for="(link, index) in links" :key="index" @click="activeBtn = index">
+        <span>{{ link.name }}</span>
+        <v-icon>{{ link.icon }}</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Search from './components/pages/Search';
+import List from './components/pages/List';
+import Favorite from './components/pages/Favorite';
+import Setting from './components/pages/Setting';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    Search,
+    List,
+    Favorite,
+    Setting,
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      links: [
+        { name: 'Search', icon: 'mdi-magnify' },
+        { name: 'List', icon: 'mdi-format-list-bulleted' },
+        { name: 'Favorite', icon: 'mdi-heart' },
+        { name: 'Setting', icon: 'mdi-cog' },
+      ],
+      activeBtn: 0,
+    }
+  },
 };
 </script>
