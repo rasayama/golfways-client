@@ -19,15 +19,20 @@
       <Setting v-show="activeBtn == 3" />
     </v-content>
 
-    <v-bottom-navigation
-      :value="activeBtn"
-      color="green"
-    >
-      <v-btn v-for="(link, index) in links" :key="index" @click="activeBtn = index">
-        <span>{{ link.name }}</span>
-        <v-icon>{{ link.icon }}</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+    <v-footer
+      padless
+      fixed
+        >
+      <v-bottom-navigation
+        :value="activeBtn"
+        color="green"
+      >
+        <v-btn v-for="(link, index) in links" :key="index" @click="activeBtn = index">
+          <span>{{ link.name }}</span>
+          <v-icon>{{ link.icon }}</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-footer>
   </v-app>
 </template>
 
