@@ -1,44 +1,37 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-  >
-    <v-text-field
+  <div>
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+    >
+      <v-text-field
       v-model="name"
-      :counter="10"
       :rules="nameRules"
       label="出発地点"
       required
-    ></v-text-field>
+      ></v-text-field>
+      <v-select
+        v-model="select"
+        :items="items"
+        :rules="[v => !!v || 'Item is required']"
+        label="ゴルフ場名"
+        required
+      ></v-select>
+    </v-form>
 
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="ゴルフ場名"
-      required
-    ></v-select>
-
-    <span style="float: right;">
-      <v-btn
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      @click="validate"
-    >
-      検索
-    </v-btn>
-
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-    >
-      検索条件をリセット
-    </v-btn>
-    </span>
-  </v-form>
+    <div class="dummy-map">
+      <div class="dummy-text">
+          [ Map Sample ]<br />
+        <span v-show="select == null">
+          Unselected
+        </span>
+        <span v-show="select != null">
+          Route to {{ select }}
+        </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -57,10 +50,10 @@
       ],
       select: null,
       items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
+        'Golf Course 1',
+        'Golf Course 2',
+        'Golf Course 3',
+        'Golf Course 4',
       ],
     }),
 
@@ -82,5 +75,21 @@ form {
   width: 70%;
   max-width: 600px;
   margin: 30px auto 0;
+}
+
+.dummy-map {
+  width: 100%;
+  height: 20rem;
+  background-color: dimgray;
+  position: relative;
+}
+
+.dummy-text {
+  position: absolute;
+  text-align: center;
+  color: white;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
 }
 </style>
